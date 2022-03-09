@@ -3,6 +3,7 @@ from pymongo import MongoClient
 from datetime import datetime
 from database.models import operacao
 from api.models import ConsultaAPI,LogAPI
+import psycopg2
 
 def logAPI(status,message,dateTime,idOperacao=False):
     if not idOperacao:
@@ -42,3 +43,32 @@ def consultaMongoDB(location,date1,date2):
         returnQuery.append(find)
     
     return returnQuery
+
+
+def runCopyCSVCommand(filepath, tableName, sep, columns=[]):
+
+    # Connection to database
+    conn = psycopg2.connect(os.environ.get("CONNECTION_STRING_POSTGRES"))
+    conn.autocommit = False
+    cursor = conn.cursor()
+    columnsCorrigido=[]
+    with open(filepath) as f:
+        try:
+            if len(columns) == 0:
+                columns = ''
+            else:
+                for column in columns:
+                    columnsCorrigido.append('"'+column+'"')
+                    
+                columns = '(' + ','.join(columnsCorrigido) + ')'
+
+            cursor.copy_expert('copy public.' + tableName + ' ' + columns + ' from stdin with csv delimiter as ' + "\'" + sep + "\'" + " encoding \'utf-8\' ", f)
+
+        except psycopg2.DatabaseError as err:
+            conn.rollback()
+            return print('Base import error : '+str(err))
+
+    conn.commit()
+    cursor.close()
+    conn.autocommit = True
+    return  print(f'successfully imported base: {tableName}')
