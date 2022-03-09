@@ -12,6 +12,7 @@ from utils.connection import createIdOperacao,logAPI
 from datetime import datetime
 
 
+
 @csrf_exempt
 def consultaApiCovid(request):
     if request.method == 'POST':
