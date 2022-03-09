@@ -87,18 +87,12 @@ WSGI_APPLICATION = 'covidCases.wsgi.application'
 # }
 DATABASES = {
     'default': {
-        # 'ENGINE': os.environ.get("ENGINE"),
-        # 'NAME': os.environ.get("NAME"),
-        # 'USER': os.environ.get("USER"),
-        # 'PASSWORD': os.environ.get("PASSWORD"),
-        # 'HOST': os.environ.get("HOST"),
-        # 'PORT': os.environ.get("PORT")
-                "ENGINE": "django.db.backends.postgresql",
-                "NAME": "blackWidow",
-                "USER": "postgres",
-                "PASSWORD": "4920@Briz",
-                "HOST": "localhost",
-                "PORT": "5432",
+        'ENGINE': os.environ.get("ENGINE"),
+        'NAME': os.environ.get("NAME"),
+        'USER': os.environ.get("USER"),
+        'PASSWORD': os.environ.get("PASSWORD"),
+        'HOST': os.environ.get("HOST"),
+        'PORT': os.environ.get("PORT")
     },
 }
 
