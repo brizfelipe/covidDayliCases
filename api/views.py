@@ -37,3 +37,6 @@ def consultaApiCovid(request):
         consultaMongo = operationAPI(data,idOperacao)
 
         return  JsonResponse({"Backend Challenge 2021 - Covid Daily Cases": consultaMongo }, status=status.HTTP_200_OK)
+
+def a():
+    pass
