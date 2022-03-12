@@ -2,7 +2,7 @@ from datetime import datetime
 
 from django.http import JsonResponse
 from rest_framework import status
-from utils.connection import consultaMongoDB, insertAPI, logAPI
+from utils.database import consultaMongoDB, insertAPI, logAPI
 from utils.data import montaJson,countVaiant
 
 

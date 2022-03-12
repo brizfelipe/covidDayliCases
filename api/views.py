@@ -8,7 +8,7 @@ from rest_framework.parsers import JSONParser
 
 from .serializer import ConsultaApiSerializer
 from .operation import operationAPI
-from utils.connection import createIdOperacao,logAPI
+from utils.database import createIdOperacao,logAPI
 from datetime import datetime
 
 

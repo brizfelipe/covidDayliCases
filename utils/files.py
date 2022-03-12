@@ -18,9 +18,19 @@ def readCSV(file):
 
     with open(file, encoding="utf-8") as inFile:
         reader = csv.reader(inFile,delimiter=';')
-        data = [row[0].split(',') for row in reader]
+        data = [row[0] for row in reader]
         results.append(data[1:])
 
         print('Arquivo' + file + ' baixado')
 
         return results[0]
+
+
+def saveCSVFile(path,nameFile,fileLista):
+    with open(path+'\\'+nameFile,mode='w',encoding='utf-8',newline='\n') as f:
+        try :
+            for row in fileLista:
+                f.write(str(row)+'\n')
+        except:
+            return -1
+    return 1

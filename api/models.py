@@ -17,7 +17,7 @@ class LogAPI(models.Model):
 class CovidCases(models.Model):
     location = models.CharField(max_length=50,null=False)
     date = models.DateField(null=False)
-    variant = models.CharField(max_length=10,null=False)
-    num_sequences = models.IntegerField(max_length=100, null=False)
-    perc_sequences = models.IntegerField(max_length=100, null=False)
-    num_sequences_total = models.IntegerField(max_length=100, null=False)
+    variant = models.CharField(max_length=20,null=False)
+    num_sequences = models.IntegerField(null=False)
+    perc_sequences = models.DecimalField(max_digits=10,decimal_places=2, null=False)
+    num_sequences_total = models.IntegerField(null=False)
