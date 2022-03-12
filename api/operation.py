@@ -2,19 +2,20 @@ from datetime import datetime
 
 from django.http import JsonResponse
 from rest_framework import status
-from utils.database import consultaMongoDB, insertAPI, logAPI
-from utils.data import montaJson,countVaiant
+from utils import database,data,query
 
-
-def operationAPI(data,idOperacao):
+def operationAPI(json,idOperacao):
     try:
         #insert informacoes in datebase ConsultaAPI
-        insertAPI(idOperacao=idOperacao,location=data['informacoes']['location'],date1=data['informacoes']['dataInicio'],date2=data['informacoes']['dataFinal'])
-        logAPI(status='200',message='informacoes adcionadas no banco de dados',dateTime=datetime.now(),idOperacao=idOperacao)
+        database.insertAPI(idOperacao=idOperacao,location=json['informacoes']['location'],date1=json['informacoes']['dataInicio'],date2=json['informacoes']['dataFinal'])
+        database.logAPI(status='200',message='informacoes adcionadas no banco de dados',dateTime=datetime.now(),idOperacao=idOperacao)
 
-        #Consult mongoDB
-        results = consultaMongoDB(location=data['informacoes']['location'],date1=data['informacoes']['dataInicio'],date2=data['informacoes']['dataFinal'])
-        logAPI(status='200',message='Consultando MongoDB',dateTime=datetime.now(),idOperacao=idOperacao)
+        #query Postgres
+        results = query.Postgres.consultaAPI(location=json['informacoes']['location'],date1=json['informacoes']['dataInicio'],date2=json['informacoes']['dataFinal'])
+        if results == -1:
+            database.logAPI(status='500',message='Unexpected error in query in Postgres database',dateTime=datetime.now(),idOperacao=idOperacao)        
+        else:
+            database.logAPI(status='200',message='query performed successfully',dateTime=datetime.now(),idOperacao=idOperacao)
         
         #parse mongoDB return
         variantesPossitivo = {}
@@ -23,7 +24,7 @@ def operationAPI(data,idOperacao):
         listaVariant = []
         casosRetorno = []
 
-        #estrutura dict de retorno
+        #structure dict the retorno
         for result in results:
             dictResult={}
            
@@ -41,17 +42,17 @@ def operationAPI(data,idOperacao):
                 variantesNegativo.append({'variant':result['variant']})
         
         if len(variantesPossitivo) <= 0:
-            logAPI(status='200',message='Solicitacao finalizada com sucesso',dateTime=datetime.now(),idOperacao=idOperacao)
+            database.logAPI(status='200',message='Solicitacao finalizada com sucesso',dateTime=datetime.now(),idOperacao=idOperacao)
             return JsonResponse({"Mensagem": "As informacoes  fornecidas de localizacao e data felizmente nao retornaram nenhum caso confirmado de infectados"}, status=status.HTTP_200_OK)            
        
         else:
-            #soma o total de casos registrados
+            #sum the total number of confirmed cases
             variantesPossitivo['totalCasosConfirmado']=sum(numeroCasos)
 
-            #agrupa e conta as variantes
-            variantesPossitivo['totalCasosPorVariante'] = countVaiant(listaVariant)
-            return montaJson(informacoes=data['informacoes'],dictVariantes=variantesPossitivo)
+            #group and count the overall of variants
+            variantesPossitivo['totalCasosPorVariante'] = data.countVaiant(listaVariant)
+            return data.montaJson(informacoes=json['informacoes'],dictVariantes=variantesPossitivo)
    
     except:
-        logAPI(status='500',message='Erro na importacao das informacoes',dateTime=datetime.now(),idOperacao=idOperacao)
+        database.logAPI(status='500',message='Erro na importacao das informacoes',dateTime=datetime.now(),idOperacao=idOperacao)
         return JsonResponse({"Mensagem": "Erro na importacao das informacoes"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

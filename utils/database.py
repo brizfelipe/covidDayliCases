@@ -3,7 +3,7 @@ from datetime import datetime
 
 import psycopg2
 from api.models import ConsultaAPI, LogAPI
-from pymongo import MongoClient
+
 
 from database.models import operacao
 

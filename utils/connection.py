@@ -1,7 +1,7 @@
 import os
-
-from utils import database 
-
+from pymongo import MongoClient
+from bson.binary import UuidRepresentation
+from bson.codec_options import CodecOptions
 
 class AccessPostgres:
 
@@ -17,9 +17,17 @@ class AccessPostgres:
 class AccesMongoDB:
 
     connectionString = os.environ.get("CONNECTION_STRING")
-    database = connectionString['fbrDailyCases']
+    db_name = os.environ.get("db_name")
 
-    collectionCodivDailyCases = database['covidDailyCases']    
+    # Establish connection with  MongoDB
+    client = MongoClient(connectionString)
+
+     # Get codec option
+    legOpts = CodecOptions(uuid_representation=UuidRepresentation.CSHARP_LEGACY)
+
+    #Get collection
+    collectionProposta = client.get_database(db_name).get_collection('covidDailyCases', codec_options=legOpts)
+
 
 class TokenKaggle:
 
