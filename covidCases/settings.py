@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'database.apps.DatabaseConfig',
     'utils.apps.UtilsConfig',
     'home.apps.HomeConfig',
+    'user.apps.UserConfig',
     'api.apps.ApiConfig',
     'django.contrib.contenttypes',
     'django.contrib.admin',
@@ -92,7 +93,6 @@ DATABASES = {
         'USER': os.environ.get("USER"),
         'PASSWORD': os.environ.get("PASSWORD"),
         'HOST': os.environ.get("HOST"),
-        'PORT': os.environ.get("PORT")
     },
 }
 

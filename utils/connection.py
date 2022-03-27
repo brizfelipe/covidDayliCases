@@ -14,19 +14,19 @@ class AccessPostgres:
     port = os.environ.get("PORT")
 
 
-class AccesMongoDB:
+# class AccesMongoDB:
 
-    connectionString = os.environ.get("CONNECTION_STRING")
-    db_name = os.environ.get("db_name")
+#     # connectionString = os.environ.get("CONNECTION_STRING")
+#     # db_name = os.environ.get("db_name")
 
-    # Establish connection with  MongoDB
-    client = MongoClient(connectionString)
+#     # # Establish connection with  MongoDB
+#     # client = MongoClient(connectionString)
 
-     # Get codec option
-    legOpts = CodecOptions(uuid_representation=UuidRepresentation.CSHARP_LEGACY)
+#     #  # Get codec option
+#     # legOpts = CodecOptions(uuid_representation=UuidRepresentation.CSHARP_LEGACY)
 
-    #Get collection
-    collectionProposta = client.get_database(db_name).get_collection('covidDailyCases', codec_options=legOpts)
+#     # #Get collection
+#     # collectionProposta = client.get_database(db_name).get_collection('covidDailyCases', codec_options=legOpts)
 
 
 class TokenKaggle:

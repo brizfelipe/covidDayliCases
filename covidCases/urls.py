@@ -8,4 +8,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('home.urls'),name='home'),
     path('api/',include('api.urls'),name='api'),
+    path('user/',include('user.urls'),name='user'),
 ]
