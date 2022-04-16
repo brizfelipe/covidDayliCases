@@ -9,7 +9,7 @@ router.register('covidCases',CovidCasesViewSet, basename='covidCases')
 
 
 urlpatterns = [
-    path('consulta/', views.consultaApiCovid, name='consultaApiCovid'),
+    path('consultaCovid/', views.consultaApiCovid, name='consultaApiCovid'),
     path('login/', views.createLogin, name='createLogin'),
     path('',include(router.urls))
 ]
