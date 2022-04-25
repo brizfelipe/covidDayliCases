@@ -1,0 +1,91 @@
+@use 'functions';
+@use 'colors';
+
+/* Icon SVG storage */
+$icons: (
+    'closeButton': '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="%%COLOR1%%"/><line x1="8" y1="16" x2="16" y2="8" style="stroke:white;stroke-width:1.5"/><line x1="8" y1="8" x2="16" y2="16" style="stroke:white;stroke-width:1.5"/></svg>',
+    'dollarSign': '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%%COLOR1%%" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>',
+);
+$data-svg-prefix: 'data:image/svg+xml;utf-8,';
+
+/* Function that tie elements in the Icon */
+@function get-icon($icon, $color1:white, $color2: false, $color3: false, $color4: false, $textPositionX: null, $textPositionY: null, $text: null) {
+
+    // Color validation
+    @if ('color' !=type-of($color1)) or ($color2 !=false and 'color' !=type-of($color2)) or ($color3 !=false and 'color' !=type-of($color3)) or ($color4 !=false and 'color' !=type-of($color4)) {
+        @warn 'The requested color was not recognized as a Sass color value.';
+        @return null;
+    }
+
+    @if map-has-key($icons, $icon) {
+
+        $icon: map-get($icons, $icon);
+
+        /* COLOR1 */
+        $placeholder: '%%COLOR1%%';
+        $data-uri: functions.str-replace(url($data-svg-prefix + $icon), $placeholder, $color1);
+
+        /* COLOR2 */
+        @if $color2 {
+            $placeholder: '%%COLOR2%%';
+            $data-uri: functions.str-replace($data-uri, $placeholder, $color2);
+        }
+        /* COLOR3 */
+        @if $color3 {
+            $placeholder: '%%COLOR3%%';
+            $data-uri: functions.str-replace($data-uri, $placeholder, $color3);
+        }
+        /* COLOR4 */
+        @if $color4 {
+            $placeholder: '%%COLOR4%%';
+            $data-uri: functions.str-replace($data-uri, $placeholder, $color4);
+        }
+
+        /* TEXT */
+        @if ($textPositionX and $textPositionY and $text) {
+            $placeholder: '%%TEXTPOSITIONX%%';
+            $data-uri: functions.str-replace($data-uri, $placeholder, $textPositionX);
+            $placeholder: '%%TEXTPOSITIONY%%';
+            $data-uri: functions.str-replace($data-uri, $placeholder, $textPositionY);
+            $placeholder: '%%TEXT%%';
+            $data-uri: functions.str-replace($data-uri, $placeholder, $text);
+        }
+        
+        @return functions.str-replace($data-uri, '#', '%23');
+    }
+
+    @warn 'The requested icon - "'+$icon+'" - is not defined in the $icons map.';
+    @return null;
+}
+
+/* Icon Builders */
+@mixin getIconContainerClass($width, $height, $minWidth: 0px, $minHeight: 0px) {
+    .iconContainer--#{$width}#{$height} {
+        display: inline-block;
+    //    margin: 0 auto;
+        width: $width;
+        height: $height;
+        min-width: $minWidth;
+        min-height: $minHeight;
+        vertical-align: middle;
+        background: center / $width $height no-repeat;
+    }
+}
+
+@mixin getIconClass($iconName, $color1: white, $color2: false, $color3: false, $color4: false, $textPositionX: null, $textPositionY: null, $text: null) {
+    .icon--#{$iconName} {
+        background-image: get-icon($iconName, $color1, $color2, $color3, $color4, $textPositionX, $textPositionY, $text);
+    }
+}
+
+@mixin getIconClassWithCustomName($className, $iconName, $color1: white, $color2: false, $color3: false, $color4: false, $textPositionX: null, $textPositionY: null, $text: null) {
+    .icon--#{$className} {
+        background-image: get-icon($iconName, $color1, $color2, $color3, $color4, $textPositionX, $textPositionY, $text);
+    }
+}
+
+@mixin getImageClass($imageName, $imageURL) {
+    .icon--#{$imageName} {
+        background-image: url($imageURL);
+    }
+}

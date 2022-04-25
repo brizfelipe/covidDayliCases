@@ -1,0 +1,35 @@
+@use 'colors';
+
+
+@mixin getChartLabel($size) {
+    .chartLabel--#{$size} {
+        color: colors.$MoneyYellow;
+        font-size: $size;
+    }    
+}
+
+@mixin getChartLabelBlack($size) {
+    .chartLabel--#{$size} {
+        color: colors.$mainContrast;
+        font-size: $size;
+    }    
+}
+
+@mixin getChartLabelWhite($size) {
+    .chartLabel--#{$size} {
+        color: colors.$mainSupport;
+        font-size: $size;
+    }    
+}
+
+@mixin getRightItemSet() {
+    .itemRight {
+        float: right;
+    }
+    
+    .itemLabelRight {
+        float: right;
+        position: relative;
+        top: 6.5px;
+    }    
+}

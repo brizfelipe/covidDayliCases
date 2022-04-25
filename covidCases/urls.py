@@ -6,7 +6,7 @@ router = routers.DefaultRouter()
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('home.urls'),name='home'),
+    path('home',include('home.urls'),name='home'),
     path('api/',include('api.urls'),name='api'),
-    path('user/',include('user.urls'),name='user'),
+    path('',include('user.urls'),name='user'),
 ]

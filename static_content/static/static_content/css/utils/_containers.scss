@@ -1,0 +1,37 @@
+/******* Grid *******/
+
+@mixin getContainerGridClassWithColumns ($className, $columnsArray...) {
+    .#{$className} {
+        display: grid;
+        grid-template-columns: $columnsArray;
+        align-items: center;
+    }
+}
+
+@mixin getContainerGridClassWithoutColumns ($className) {
+    .#{$className} {
+        display: grid;
+        align-items: center;
+    }
+}
+
+/******* FlexBox *******/
+@mixin getContainerFlexboxClass ($className, $flex-direction: row, $justify-content: flex-start, $align-items: stretch, $flex-wrap: nowrap) {
+    .#{$className} {
+        display: flex;
+        flex-direction: $flex-direction;
+        justify-content: $justify-content;
+        align-items: $align-items;
+        flex-wrap: $flex-wrap;
+    }
+}
+
+
+/******* Other *******/
+@mixin getContainerFullSize($className) {
+    .#{$className} {
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+}

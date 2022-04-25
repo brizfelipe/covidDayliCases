@@ -1,0 +1,300 @@
+@use '../utils/labels';
+@use '../utils/containers';
+@use '../utils/colors';
+
+
+/** Labels **/
+@include labels.getChartLabelBlack(20px);
+@include labels.getChartLabelWhite(17px);
+
+.inputOutputLabel {
+    width: 100%;
+    height: 21px;
+    text-align: center;
+    background-color: colors.$BMPBlue;
+}
+
+/** Containers **/
+
+@include containers.getContainerFlexboxClass ('containerFlexCSS', $flex-direction: column, $justify-content: flex-start, $align-items: flex-start);
+@include containers.getContainerFlexboxClass ('containerFlexRSS', $flex-direction: row, $justify-content: flex-start, $align-items: flex-start);
+@include containers.getContainerFlexboxClass ('containerFlexRW', $flex-direction: row, $justify-content: center, $flex-wrap: wrap);
+
+/* BASIC */
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  height: 100vh;
+  
+}
+
+/* STRUCTURE */
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100%;
+  padding: 20px;
+
+}
+
+#formContent {
+  width: 50%;
+  max-width: 600px;
+  min-width: 250px;
+  position: relative;
+  text-align: center;
+}
+
+/* FORM TYPOGRAPHY*/
+
+input[type=text] {
+    background-color: rgb(212, 212, 212);
+    border: none;
+    color: colors.$mainContrast;
+    padding: 10px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 5px;
+    width:98%;
+    border: 2px solid rgb(212, 212, 212);
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+    -webkit-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+}
+
+input[type=password] {
+  background-color: rgb(212, 212, 212);
+  border: none;
+  color: colors.$mainContrast;
+  padding: 10px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 5px;
+  width: 98%;
+  border: 2px solid rgb(212, 212, 212);
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+}
+input[type=email] {
+    background-color: rgb(212, 212, 212);
+    border: none;
+    color: colors.$mainContrast;
+    padding: 10px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 5px;
+    width: 98%;
+    border: 2px solid rgb(212, 212, 212);
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+    -webkit-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+}
+
+
+input[type=text]:focus,
+input[type=password]:focus {
+  background-color: white;
+}
+
+input[type=button],
+input[type=submit],
+input[type=reset] {
+  background-color: colors.$BMPBlue;
+  border: none;
+  color: colors.$MoneyYellow;
+  font-weight: bold;
+  padding: 15px 0px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  text-transform: uppercase;
+  font-size: 13px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  width: 50%;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+  margin: 5px 20px 40px 20px;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+input[type=button]:hover,
+input[type=submit]:hover,
+input[type=reset]:hover {
+  color: colors.$BMPBlueContrast;
+  background-color: colors.$BMPBlue;
+}
+
+input[type=button]:active,
+input[type=submit]:active,
+input[type=reset]:active {
+  -moz-transform: scale(0.95);
+  -webkit-transform: scale(0.95);
+  -o-transform: scale(0.95);
+  -ms-transform: scale(0.95);
+  transform: scale(0.95);
+}
+
+/* ANIMATIONS */
+
+.backGoundForm{
+    background: rgba( 255, 255, 255, 0.3 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 13px );
+    -webkit-backdrop-filter: blur( 13px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+/* Simple CSS3 Fade-in Animation */
+@-webkit-keyframes fadeIn {
+  from {
+      opacity: 0;
+  }
+
+  to {
+      opacity: 1;
+  }
+}
+
+@-moz-keyframes fadeIn {
+  from {
+      opacity: 0;
+  }
+
+  to {
+      opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+  }
+
+  to {
+      opacity: 1;
+  }
+}
+
+.fadeIn {
+  opacity: 0;
+  -webkit-animation: fadeIn ease-in 1;
+  -moz-animation: fadeIn ease-in 1;
+  animation: fadeIn ease-in 1;
+
+  -webkit-animation-fill-mode: forwards;
+  -moz-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+
+  -webkit-animation-duration: 0.5s;
+  -moz-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+}
+
+.fadeIn.first {
+  -webkit-animation-delay: 0s;
+  -moz-animation-delay: 0s;
+  animation-delay: 0s;
+}
+
+.fadeIn.second {
+  -webkit-animation-delay: 0.1s;
+  -moz-animation-delay: 0.1s;
+  animation-delay: 0.1s;
+}
+
+.fadeIn.third {
+  -webkit-animation-delay: 0.2s;
+  -moz-animation-delay: 0.2s;
+  animation-delay: 0.2s;
+}
+
+.fadeIn.fourth {
+  -webkit-animation-delay: 0.4s;
+  -moz-animation-delay: 0.4s;
+  animation-delay: 0.4s;
+}
+/* OTHERS */
+
+*:focus {
+  outline: none;
+}
+
+.failure {
+  color: colors.$warningRed;
+}
+
+
+#body{
+    background-color:colors.$BMPBlue;
+}
+
+form{
+    margin-top: 0.5cm;
+}
+
+label{
+    color: rgb(231, 231, 231);
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 16px;
+}
+/* Add a black background color to the top navigation */
+.topnav {
+    background-color: colors.$BMPBlue;
+    overflow: hidden;
+  }
+
+  /* Style the links inside the navigation bar */
+  .topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  .topnav a.login {
+    float: right;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  /* Change the color of links on hover */
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+
+  /* Add a color to the active/current link */
+.topnav a.active {
+    background-color: colors.$MoneyYellow;
+    color: #333;
+  }
