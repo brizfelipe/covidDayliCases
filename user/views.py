@@ -1,5 +1,3 @@
-from http import server
-
 from django.contrib import auth, messages
 from django.contrib.auth.models import User
 from django.http import JsonResponse
@@ -77,11 +75,13 @@ def subscription(request):
             return redirect('subscription')
       
         else:
-            user = User.objects.create_user(username=name,email=email,password=password)
-            user.save()
-            messages.success(request, f'Usuário  criado com sucesso. Bem vindo {name}')
-            return redirect('menu')
-
+            try:
+                user = User.objects.create_user(username=name,first_name=name.split()[0],last_name=name.split()[1],email=email,password=password)
+                user.save()
+                messages.success(request, f'Usuário  criado com sucesso. Bem vindo {name}')
+                return redirect('menu')
+            except ImportError as err:
+                messages.error(request,f'Erro: {err}')
     else:
         form = forms.SubscriptionForms()
         context = {'subscriptionForms':form}
@@ -89,7 +89,30 @@ def subscription(request):
 
 
 def singIn(request):
-    return render(request,'users/singin.html')
+        if request.method == 'POST':
+    
+            userName = request.POST['user']
+            password = request.POST['passWord']
+        
+            if userName =="" or password == "":
+                messages.error(request, 'Os campos email e senha não podem ficar em branco')
+                return redirect('singin')
+            
+            elif User.objects.filter(email=userName).exists() or User.objects.filter(username=userName).exists():
+                name = User.objects.filter(email=userName).values_list('username', flat=True).get()
+                user = auth.authenticate(request, username=name, password=password)
+                if user is not None:
+                    auth.login(request, user)
+                    return redirect('menu')
+                    
+            else:
+                messages.error(request,'Usuário não cadastrado')
+                return redirect('singin') 
+
+        else:
+            form = forms.SingIn()
+            context = {'singIng':form}
+            return render(request,'users/singin.html',context)
 
 def menu(request):
     pass

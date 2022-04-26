@@ -9,6 +9,6 @@ class SubscriptionForms(forms.Form):
     repeatPassWord= forms.CharField(label='REPEAT PASSWORD:',max_length=100,widget=forms.PasswordInput)
 
 class SingIn(forms.Form):
-    user = forms.CharField(label='FULL NAME:',max_length=50)
+    user = forms.CharField(label='USERNAME OR E-MAIL:',max_length=50)
     passWord = forms.CharField(label='PASSWORD:',max_length=100,widget=forms.PasswordInput)
     

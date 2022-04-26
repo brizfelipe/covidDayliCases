@@ -1,12 +1,53 @@
+{% load static %}
+{% load widget_tweaks %}
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+
+    <!-- CSS -->
+    <link href='{% static "static_content/css/users/dist/singin.css" %}' rel='stylesheet'>
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <!-- W3.CSS -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <title>Covid case search</title>
 </head>
-<body>
-    
+<body style="background-color:rgb(189, 74, 74);">
+    <div class="topnav">
+        <a class="login" href="{% url 'subscription' %}">Login Up</a>
+    </div>
+    <div class="wrapper" style="background-color:rgb(189, 74, 74);">
+        <div class="formContent">
+            
+            <form action="{% url 'singin'%}" method="POST">
+                <div >
+                <h1 style="color: aliceblue;" class="fadeIn first">SING IN</h1>
+                {% include "users/_alertas.html" %}
+                <div style="max-width: 850px;border-width: 10px;" class="containerFlexRSS center_div backGoundForm fadeIn second">
+                    <div style="max-width: 1000px; margin-right: 10px;margin-top: 100px;">
+                        {% csrf_token %}
+                        {%for field in singIng%}
+                        {% render_field field  style="margin-bottom:14px;" class="form-control form-control-md" placeholder=field.label%}
+                        {%endfor%}
+                    </div>
+                    <img src="../../static_content/static/static_content/images/backgoundCovid.jpeg" style="width:57%;margin-top: 14px;margin-bottom:14px; margin-right:5px;"  class="w3-round-xxlarge">
+                </div>
+
+                <div style="margin-top: 0.5cm;" class="fadeIn third">
+                    <button id="fadeInfourth" class="btn btn-success" type="submit">SING IN</button>
+                </div>
+            </div>
+            </form>
+
+        </div>
+    </div>
+
 </body>
 </html>
