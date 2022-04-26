@@ -7,6 +7,7 @@ from rest_framework import status
 from . import forms
 
 
+
 def register(user,password,email):
     
     #fields void autenticar 
@@ -76,7 +77,7 @@ def subscription(request):
       
         else:
             try:
-                user = User.objects.create_user(username=name,first_name=name.split()[0],last_name=name.split()[1],email=email,password=password)
+                user = User.objects.create_user(username=userName,first_name=name.split()[0],last_name=name.split()[1],email=email,password=password)
                 user.save()
                 messages.success(request, f'Usuário  criado com sucesso. Bem vindo {name}')
                 return redirect('menu')
@@ -91,24 +92,27 @@ def subscription(request):
 def singIn(request):
         if request.method == 'POST':
     
-            userName = request.POST['user']
+            userMail = request.POST['user']
             password = request.POST['passWord']
         
-            if userName =="" or password == "":
+            if userMail =="" or password == "":
                 messages.error(request, 'Os campos email e senha não podem ficar em branco')
                 return redirect('singin')
             
-            elif User.objects.filter(email=userName).exists() or User.objects.filter(username=userName).exists():
-                name = User.objects.filter(email=userName).values_list('username', flat=True).get()
-                user = auth.authenticate(request, username=name, password=password)
-                if user is not None:
-                    auth.login(request, user)
-                    return redirect('menu')
-                    
+            elif User.objects.filter(email=userMail).exists() or User.objects.filter(username=userMail).exists():
+                if not User.objects.filter(email=userMail).values_list('username', flat=True).get():
+                    user = auth.authenticate(request, username=userMail, password=password)
+                    if user is not None:
+                        auth.login(request, user)
+                        return redirect('menu')             
+                else:
+                    user = auth.authenticate(request, email=userMail, password=password)
+                    if user is not None:
+                        auth.login(request, user)
+                        return redirect('menu')                
             else:
                 messages.error(request,'Usuário não cadastrado')
                 return redirect('singin') 
-
         else:
             form = forms.SingIn()
             context = {'singIng':form}
